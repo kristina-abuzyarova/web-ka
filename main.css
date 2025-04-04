@@ -20,5 +20,35 @@ footer {
     font-family: Arial;
 }
 a {
+    color: green;
     text-decoration: none;
+    transition: 1s 2s;
 }
+
+a:link {
+    text-decoration: underline;
+    color: rgb(17, 122, 167);
+    background-color: aliceblue;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: initial;
+}
+
+a:visited {
+    text-decoration: underline;
+    background-color: rgb(214, 111, 111);
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    color: black;
+}
+
+a:hover {
+    color: red;
+    text-decoration: inderline;
+    transition: 0.3s;
+}
+
+a:active {
+    color: black;
+    opacity: 0.3;
+}
+
