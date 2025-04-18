@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <Head>
+       
+        <style>
+           div {
+            width: 300px;
+            height: 70px;
+            line-height: 70px;
+            text-align: center;
+            background-color: aliceblue;
+            border: 1px dotted darkgreen;
+            margin: 15px;
+
+           }
+        
+           .position-relative {
+            position: relative;
+            left: 160px;
+            top: -150px;
+            z-index: 0;
+           }
+
+           .position-relative:hover {
+            z-index: -2;
+           }
+
+           .position-absolute {
+            position: absolute ;
+            left: 320px;
+           }
+
+           .position-absolute:hover {
+            scale: 1.2;
+            background-color: aqua(125, 206, 233);
+            transition: 3s;
+            box-shadow: 3px 3px 3px aqua(75, 192, 233)
+           }
+        </style>
+    </Head>
+    <body>
+        <header>
+            НГТУ, ФБ, Лабораторная работа 4
+            <hr>
+        </header>
+
+        <main>
+           <div>static</div>
+           <div>static</div>
+           <div class="position-relative">relative</div>
+           <div class="position-absolute">absolute</div>
+           <div class="position-absolute:hover">static</div>
+           <div class="position-relative:hover">static</div>
+           <div>static</div>
+           <div>static</div>
+           <div>static</div>
+           <div>static</div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy;Абузярова Кристина, ФБИ-34, 2 курс, 2025
+        </footer>
+    </body>
+</html>
