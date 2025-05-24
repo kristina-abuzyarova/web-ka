@@ -1,0 +1,87 @@
+<html lang="ru">
+    <Head>
+        <meta charset="utf-8">
+        <title>Абузярова Кристина Руслановна</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+        <link rel="icon" href="favicon-32x32.png" type="image/x-icon">
+        <script>
+            function showSum() {
+            let a = 5154;
+            let b = 7891;
+            let result = a + b;
+            alert('сумма '+ a +'  и ' + b + ' равна'+ result);
+        }
+
+        function showAuthor() {
+            let author = ' Автор страницы:\n Абузярова Кристина Руслановна';
+            alert(author);
+        }
+        </script>
+        <style>
+            .message {
+                cursor: pointer;
+                display: inline-block;
+                width: 300px;
+                height: 40px;
+                background-color: bisque;
+                font-size: 20px;
+                text-align: center;
+                border: 3px solid black;
+                text-align: center;
+                line-height: 40px;
+            }
+           div {
+            width: 300px;
+            height: 70px;
+            line-height: 70px;
+            text-align: center;
+            background-color: aliceblue;
+            border: 1px dotted darkgreen;
+            margin: 15px;
+
+           }
+        
+           .position-relative {
+            position: relative;
+            left: 160px;
+            top: -150px;
+            z-index: 0;
+           }
+
+           .position-relative:hover {
+            z-index: -2;
+           }
+
+           .position-absolute {
+            position: absolute ;
+            left: 320px;
+           }
+
+           .position-absolute:hover {
+            scale: 1.2;
+            background-color: aqua(125, 206, 233);
+            transition: 3s;
+            box-shadow: 3px 3px 3px aqua(75, 192, 233)
+           }
+        </style>
+    </Head>
+    <body>
+        <header>
+            НГТУ, ФБ, Лабораторная работа 5
+            <hr>
+        </header>
+
+        <main>
+            <div class="message" onclick="showSum()">Сколько будет 5154+7891?</div>
+            <div class="message" onclick="showAuthor()"> Узнать, кто автор страницы</div>
+           
+        </main>
+
+        <footer>
+            <hr>
+            &copy;Абузярова Кристина, ФБИ-34, 2 курс, 2025
+        </footer>
+    </body>
+</html>
