@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>О компании | АМО ЗИЛ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background-color: #f8f9fa;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    header {
+      background-color: #343a40;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    
+    .logo {
+      max-width: 150px;
+      height: auto;
+    }
+    
+    nav {
+      background-color: #495057;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    nav ul li {
+      margin: 0 20px;
+    }
+    
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      padding: 5px 10px;
+      transition: all 0.3s ease;
+    }
+    
+    nav ul li a:hover, nav ul li a.active {
+      color: #adb5bd;
+      border-bottom: 2px solid #adb5bd;
+    }
+    
+    main {
+      padding: 40px 0;
+    }
+    
+    section {
+      margin-bottom: 50px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      border: 1px solid #e9ecef;
+    }
+    
+    h2 {
+      color: #212529;
+      font-size: 28px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #6c757d;
+    }
+    
+    h3 {
+      color: #343a40;
+      font-size: 22px;
+      margin: 25px 0 15px;
+    }
+    
+    p {
+      margin-bottom: 15px;
+    }
+    
+    ul, ol {
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    
+    li {
+      margin-bottom: 8px;
+    }
+    
+    figure {
+      margin: 25px 0;
+      text-align: center;
+    }
+    
+    figure img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      border: 1px solid #dee2e6;
+    }
+    
+    figcaption {
+      font-size: 14px;
+      color: #6c757d;
+      margin-top: 10px;
+      font-style: italic;
+    }
+    
+    a {
+      color: #495057;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    a:hover {
+      color: #212529;
+      text-decoration: underline;
+    }
+    
+    .highlight {
+      background-color: #f8f9fa;
+      padding: 2px 5px;
+      border-radius: 3px;
+      border: 1px solid #dee2e6;
+    }
+    
+    .to-top {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: #495057;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .to-top:hover {
+      background-color: #343a40;
+      transform: translateY(-5px);
+    }
+    
+    footer {
+      background-color: #343a40;
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+    }
+    
+    .footer-text {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #adb5bd;
+    }
+    
+    @media (max-width: 768px) {
+      nav ul li {
+        margin: 0 10px;
+      }
+      
+      section {
+        padding: 20px;
+      }
+      
+      h2 {
+        font-size: 24px;
+      }
+      
+      .logo {
+        max-width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Остальное содержимое HTML остается без изменений -->
+  <header>
+    <div class="container">
+        <h1>АМО ЗИЛ</h1>
+    </div>
+  </header>
+
+  <nav>
+    <div class="container">
+      <ul>
+        <li><a href="news.html">Новости</a></li>
+        <li><a href="company.html" class="active">О компании</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+        <li><a href="video.html">Видео</a></li>
+        <li><a href="currency.html">Калькулятор</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section>
+      <h2>История компании</h2>
+      <p><strong>АМО ЗИЛ</strong> — одно из старейших промышленных предприятий России, основанное в <u><strong>1916 году</strong></u> как <em>Автомобильное Московское Общество</em>. Основателями стали представители российской промышленной элиты и государственные структуры.</p>
+      
+      <figure>
+        <img src="https://a.d-cd.net/CwAAAgK0qOA-1920.jpg" alt="Историческое фото завода АМО ЗИЛ">
+        <figcaption>Историческое фото завода АМО ЗИЛ</figcaption>
+      </figure>
+      
+      <h3>Первые годы</h3>
+      <p>Предприятие было создано для выпуска грузовых автомобилей под маркой <span class="highlight">"FIAT"</span> для нужд армии и народного хозяйства. В 1924 году завод начал выпуск первого советского грузовика <strong>"АМO-Ф-15"</strong>.</p>
+      
+      <h3>Советский период</h3>
+      <p>В 1931 году предприятие было переименовано в <em>Завод имени Сталина</em> (ЗИС), а в 1956 году — в <em>Завод имени Лихачёва</em> (ЗИЛ). В этот период завод стал флагманом советского автомобилестроения.</p>
+      
+      <figure>
+        <img src="https://a.d-cd.net/fQAAAgEWwuA-960.jpg" alt="Производство на ЗИЛ в советское время">
+        <figcaption>Производственные линии ЗИЛ в советское время</figcaption>
+      </figure>
+      
+      <p>Подробнее об истории компании можно узнать на <a href="https://www.amo-zil.ru/about/history/" target="_blank">официальном сайте</a>.</p>
+    </section>
+
+    <section>
+      <h2>Основные направления деятельности</h2>
+      <p>Сегодня <strong>ПАО «АМО ЗИЛ»</strong> занимается следующими направлениями:</p>
+      
+      <h3>Управление имущественным комплексом</h3>
+      <ul>
+        <li>Эксплуатация и содержание объектов недвижимости</li>
+        <li>Развитие инфраструктуры территории</li>
+        <li>Сдача в аренду производственных и офисных помещений</li>
+      </ul>
+      
+      <h3>Реконструкция и развитие территории</h3>
+      <ul>
+        <li>Реализация проекта <span class="highlight">"ЗИЛАРТ"</span> — создание современного городского квартала</li>
+        <li>Строительство жилых и коммерческих объектов</li>
+        <li>Создание социальной инфраструктуры</li>
+      </ul>
+      
+      <figure>
+        <img src="https://avatars.mds.yandex.net/i?id=9c41aba986b25ec510034a4030c1e048_l-5219471-images-thumbs&n=13" alt="Современный проект ЗИЛАРТ">
+        <figcaption>Современный вид территории ЗИЛАРТ</figcaption>
+      </figure>
+      
+      <h3>Культурные и социальные проекты</h3>
+      <p>Компания поддерживает <em>социальные и культурные инициативы</em>, включая музей истории завода и образовательные программы.</p>
+    </section>
+
+    <section>
+      <h2>Современные проекты</h2>
+      <p><strong>АМО ЗИЛ</strong> сегодня — это масштабный проект редевелопмента промышленной территории с сохранением исторического наследия.</p>
+      
+      <h3>ЗИЛАРТ</h3>
+      <p>Проект <a href="https://www.amo-zil.ru/projects/zilart/" target="_blank">ЗИЛАРТ</a> включает:</p>
+      <ol>
+        <li>Жилые кварталы с современной инфраструктурой</li>
+        <li>Бизнес-центры и офисные пространства</li>
+        <li>Образовательные учреждения (школы, детские сады)</li>
+        <li>Парковые зоны и места для отдыха</li>
+        <li>Культурные объекты (музеи, выставочные пространства)</li>
+      </ol>
+      
+      <figure>
+        <img src="https://www.skuratov-arch.ru/wp-content/uploads/2018/01/KONTSEPTSIYA-7.jpg" alt="План развития территории ЗИЛАРТ">
+        <figcaption>План развития территории ЗИЛАРТ</figcaption>
+      </figure>
+      
+      <h3>Перспективы развития</h3>
+      <p>В планах компании:</p>
+      <ul>
+        <li>Завершение основных этапов строительства к <u>2028 году</u></li>
+        <li>Создание <em>25 000 рабочих мест</em> на новой территории</li>
+        <li>Сохранение исторических промышленных объектов</li>
+        <li>Развитие транспортной инфраструктуры</li>
+      </ul>
+    </section>
+  </main>
+
+  <a href="#" class="to-top" title="Наверх">↑</a>
+
+  <footer>
+    <div class="container">
+      <p class="footer-text">© 2025 АМО ЗИЛ. Все права защищены.</p>
+      <p class="footer-text">Адрес: 115280, г. Москва, ул. Автозаводская, д. 23</p>
+      <p class="footer-text">Телефон: +7 (495) 123-45-67</p>
+      <p class="footer-text">Email: info@amo-zil.ru</p>
+    </div>
+  </footer>
+
+  <script>
+    // Плавная прокрутка к якорям
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Показать/скрыть кнопку "Наверх" при скролле
+    window.addEventListener('scroll', function() {
+      const toTopButton = document.querySelector('.to-top');
+      if (window.pageYOffset > 300) {
+        toTopButton.style.display = 'flex';
+      } else {
+        toTopButton.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

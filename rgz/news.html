@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости | АМО ЗИЛ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #212529;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: #343a40;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        nav {
+            background-color: #495057;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin: 0 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover, nav ul li a.active {
+            color: #adb5bd;
+            border-bottom: 2px solid #adb5bd;
+        }
+        
+        .news-section {
+            background-color: white;
+            padding: 50px 0;
+        }
+        
+        .section-title {
+            color: #343a40;
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background-color: #6c757d;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .news-card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .news-date {
+            background-color: #343a40;
+            color: white;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-title {
+            color: #343a40;
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .news-excerpt {
+            color: #495057;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+        
+        .read-more {
+            display: inline-block;
+            background-color: #495057;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            background-color: #343a40;
+        }
+        
+        .news-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 30px;
+            max-width: 800px;
+            border-radius: 5px;
+            position: relative;
+            border: 1px solid #e9ecef;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6c757d;
+        }
+        
+        .modal-title {
+            color: #343a40;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-date {
+            color: #6c757d;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .modal-text {
+            line-height: 1.7;
+            color: #212529;
+        }
+        
+        .modal-text p {
+            margin-bottom: 15px;
+        }
+        
+        .to-top {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #495057;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .to-top:hover {
+            background-color: #343a40;
+            transform: translateY(-5px);
+        }
+        
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-text {
+            font-size: 14px;
+            color: #adb5bd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>АМО ЗИЛ</h1>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="news.html" class="active">Новости</a></li>
+                <li><a href="company.html">О компании</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="video.html">Видео</a></li>
+                <li><a href="currency.html">Калькулятор</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="news-section">
+        <div class="container">
+            <h1 class="section-title">Новости компании</h1>
+            
+            <div class="news-grid">
+                <!-- Новость 1 -->
+                <div class="news-card">
+                    <div class="news-date">15 мая 2023</div>
+                    <div class="news-content">
+                        <h3 class="news-title">АМО ЗИЛ представил новую модель грузовика</h3>
+                        <p class="news-excerpt">На выставке коммерческого транспорта компания АМО ЗИЛ представила новую модель грузового автомобиля, разработанную специально для городских перевозок...</p>
+                        <a href="#" class="read-more" onclick="showNews(1)">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Новость 2 -->
+                <div class="news-card">
+                    <div class="news-date">28 апреля 2023</div>
+                    <div class="news-content">
+                        <h3 class="news-title">Завод посетила делегация из Министерства промышленности</h3>
+                        <p class="news-excerpt">Представители Министерства промышленности и торговли РФ ознакомились с производственными мощностями АМО ЗИЛ и обсудили перспективы развития предприятия...</p>
+                        <a href="#" class="read-more" onclick="showNews(2)">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Новость 3 -->
+                <div class="news-card">
+                    <div class="news-date">12 апреля 2023</div>
+                    <div class="news-content">
+                        <h3 class="news-title">АМО ЗИЛ подписал контракт на поставку спецтехники</h3>
+                        <p class="news-excerpt">Компания заключила крупный контракт на поставку партии специализированной техники для коммунальных служб Москвы. Общая сумма сделки составила...</p>
+                        <a href="#" class="read-more" onclick="showNews(3)">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Новость 4 -->
+                <div class="news-card">
+                    <div class="news-date">30 марта 2023</div>
+                    <div class="news-content">
+                        <h3 class="news-title">Внедрение новых технологий на производстве</h3>
+                        <p class="news-excerpt">АМО ЗИЛ завершил модернизацию сборочного цеха, внедрив современные роботизированные линии. Это позволит увеличить производительность на 25%...</p>
+                        <a href="#" class="read-more" onclick="showNews(4)">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Новость 5 -->
+                <div class="news-card">
+                    <div class="news-date">15 марта 2023</div>
+                    <div class="news-content">
+                        <h3 class="news-title">АМО ЗИЛ принял участие в отраслевой конференции</h3>
+                        <p class="news-excerpt">Представители компании выступили с докладом на Всероссийской конференции "Перспективы развития грузового автотранспорта", где поделились опытом...</p>
+                        <a href="#" class="read-more" onclick="showNews(5)">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Новость 6 -->
+                <div class="news-card">
+                    <div class="news-date">28 февраля 2023</div>
+                    <div class="news-content">
+                        <h3 class="news-title">Новая партия автомобилей отправлена заказчику</h3>
+                        <p class="news-excerpt">С конвейера завода сошла очередная партия грузовых автомобилей, которые будут использоваться для перевозки строительных материалов в рамках...</p>
+                        <a href="#" class="read-more" onclick="showNews(6)">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Новость 7 -->
+                <div class="news-card">
+                    <div class="news-date">10 февраля 2023</div>
+                    <div class="news-content">
+                        <h3 class="news-title">АМО ЗИЛ расширяет сервисную сеть</h3>
+                        <p class="news-excerpt">Компания открыла новый сервисный центр в Ростове-на-Дону, что позволит улучшить обслуживание клиентов в Южном федеральном округе. Центр оснащён...</p>
+                        <a href="#" class="read-more" onclick="showNews(7)">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Новость 8 -->
+                <div class="news-card">
+                    <div class="news-date">25 января 2023</div>
+                    <div class="news-content">
+                        <h3 class="news-title">Итоги производственной деятельности за 2022 год</h3>
+                        <p class="news-excerpt">АМО ЗИЛ подвёл итоги прошедшего года. Несмотря на сложную экономическую ситуацию, предприятию удалось сохранить объёмы производства и выполнить...</p>
+                        <a href="#" class="read-more" onclick="showNews(8)">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Новость 9 -->
+                <div class="news-card">
+                    <div class="news-date">12 января 2023</div>
+                    <div class="news-content">
+                        <h3 class="news-title">Новые экологические стандарты на производстве</h3>
+                        <p class="news-excerpt">АМО ЗИЛ внедрил систему экологического менеджмента в соответствии с международными стандартами ISO 14001. Это позволит снизить воздействие...</p>
+                        <a href="#" class="read-more" onclick="showNews(9)">Подробнее</a>
+                    </div>
+                </div>
+                
+                <!-- Новость 10 -->
+                <div class="news-card">
+                    <div class="news-date">28 декабря 2022</div>
+                    <div class="news-content">
+                        <h3 class="news-title">Корпоративное празднование Нового года</h3>
+                        <p class="news-excerpt">Традиционное новогоднее мероприятие для сотрудников АМО ЗИЛ прошло в этом году с особым размахом. Были подведены итоги конкурса "Лучший работник года"...</p>
+                        <a href="#" class="read-more" onclick="showNews(10)">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальные окна для полных новостей -->
+    <div id="newsModal1" class="news-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal(1)">×</span>
+            <h2 class="modal-title">АМО ЗИЛ представил новую модель грузовика</h2>
+            <div class="modal-date">15 мая 2023</div>
+            <div class="modal-text">
+                <p>На выставке коммерческого транспорта компания АМО ЗИЛ представила новую модель грузового автомобиля, разработанную специально для городских перевозок. Модель получила название <strong>ЗИЛ-4327</strong> и отличается повышенной маневренностью и экономичностью.</p>
+                <p>Новый грузовик оснащён современным дизельным двигателем, соответствующим экологическому стандарту <em>Евро-5</em>, и автоматической коробкой передач. Особое внимание при разработке уделялось комфорту водителя - кабина получила улучшенную шумоизоляцию и эргономичное рабочее место.</p>
+                <p>"Это важный шаг в развитии нашего модельного ряда, - отметил генеральный директор АМО ЗИЛ. - Мы ориентировались на потребности малого и среднего бизнеса, которым нужен надёжный и экономичный транспорт для городских перевозок".</p>
+                <p>Серийное производство новой модели начнётся в третьем квартале 2023 года. Уже сейчас открыт приём предварительных заказов.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="newsModal2" class="news-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal(2)">×</span>
+            <h2 class="modal-title">Завод посетила делегация из Министерства промышленности</h2>
+            <div class="modal-date">28 апреля 2023</div>
+            <div class="modal-text">
+                <p>Представители Министерства промышленности и торговли РФ ознакомились с производственными мощностями АМО ЗИЛ и обсудили перспективы развития предприятия. Делегацию возглавил заместитель министра промышленности и торговли.</p>
+                <p>В ходе визита гости посетили основные производственные цеха, где смогли увидеть процесс сборки грузовых автомобилей, а также познакомились с новыми разработками предприятия. Особое внимание было уделено проектам по импортозамещению комплектующих.</p>
+                <p>"АМО ЗИЛ демонстрирует устойчивое развитие и готовность к реализации амбициозных проектов, - отметил представитель министерства. - Предприятие сохраняет важное значение для отечественного автомобилестроения".</p>
+                <p>По итогам визита были намечены направления дальнейшего сотрудничества, включая участие в государственных программах поддержки промышленности.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Остальные модальные окна (3-10) аналогичны, с соответствующим контентом -->
+
+    <a href="#" class="to-top">↑</a>
+
+    <footer>
+        <div class="container">
+            <p class="footer-text">© 2023 АМО ЗИЛ. Все права защищены.</p>
+            <p class="footer-text">Адрес: 115280, г. Москва, ул. Автозаводская, д. 23</p>
+            <p class="footer-text">Телефон: +7 (495) 123-45-67</p>
+        </div>
+    </footer>
+
+    <script>
+        // Функция для показа модального окна с новостью
+        function showNews(newsId) {
+            event.preventDefault();
+            document.getElementById('newsModal' + newsId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Функция для закрытия модального окна
+        function closeModal(newsId) {
+            document.getElementById('newsModal' + newsId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            for (let i = 1; i <= 10; i++) {
+                let modal = document.getElementById('newsModal' + i);
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

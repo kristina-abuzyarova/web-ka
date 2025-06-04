@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Курс валют | AMO-ZIL</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: #212529;
+      line-height: 1.6;
+      background-color: #f8f9fa;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    header {
+      background-color: #343a40;
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+    }
+    
+    nav {
+      background-color: #495057;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    nav ul li {
+      margin: 0 20px;
+    }
+    
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      padding: 5px 10px;
+      transition: all 0.3s ease;
+    }
+    
+    nav ul li a:hover, nav ul li a.active {
+      color: #adb5bd;
+      border-bottom: 2px solid #adb5bd;
+    }
+    
+    .currency-section {
+      background-color: white;
+      padding: 50px 0;
+    }
+    
+    .section-title {
+      color: #343a40;
+      font-size: 36px;
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 3px;
+      background-color: #6c757d;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .currency-card {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      border: 1px solid #e9ecef;
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .currency-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .card-title {
+      color: #343a40;
+      font-size: 24px;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+    
+    .converter {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    
+    input, select {
+      padding: 12px 15px;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      font-size: 16px;
+      flex: 1;
+      min-width: 200px;
+      background-color: #f8f9fa;
+    }
+    
+    button {
+      background-color: #495057;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    button:hover {
+      background-color: #343a40;
+    }
+    
+    .result {
+      font-size: 18px;
+      font-weight: 500;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+      display: inline-block;
+      border: 1px solid #e9ecef;
+    }
+    
+    .chart-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    
+    .chart-container {
+      margin-top: 30px;
+      position: relative;
+      height: 400px;
+    }
+    
+    .info-box {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+      font-size: 16px;
+      border: 1px solid #e9ecef;
+    }
+    
+    .loading {
+      color: #495057;
+      font-weight: bold;
+    }
+    
+    .error {
+      color: #dc3545;
+      font-weight: bold;
+    }
+    
+    footer {
+      background-color: #343a40;
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+    }
+    
+    .footer-text {
+      font-size: 14px;
+      color: #adb5bd;
+    }
+    
+    /* Добавленный стиль для кнопки "Наверх" */
+    .to-top {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: #495057;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .to-top:hover {
+      background-color: #343a40;
+      transform: translateY(-5px);
+    }
+    
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      nav ul li {
+        margin: 5px 0;
+      }
+      
+      .converter {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      input, select, button {
+        width: 100%;
+      }
+      
+      .chart-controls {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>AMO-ЗИЛ</h1>
+    </div>
+  </header>
+
+  <nav>
+    <div class="container">
+      <ul>
+        <li><a href="news.html">Новости</a></li>
+        <li><a href="company.html">О компании</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+        <li><a href="video.html">Видео</a></li>
+        <li><a href="currency.html" class="active">Калькулятор</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="currency-section">
+    <div class="container">
+      <h2 class="section-title">Курс валют</h2>
+      
+      <div class="currency-card">
+        <h3 class="card-title">Калькулятор валют</h3>
+        <div class="converter">
+          <input type="number" id="amount" placeholder="Сумма" min="0" step="0.01">
+          <select id="from-currency">
+            <option value="RUB">Российский рубль (RUB)</option>
+            <option value="USD">Доллар США (USD)</option>
+          </select>
+          <span>→</span>
+          <select id="to-currency">
+            <option value="USD">Доллар США (USD)</option>
+            <option value="RUB">Российский рубль (RUB)</option>
+          </select>
+          <button onclick="convertCurrency()">Перевести</button>
+        </div>
+        <div id="current-rate" class="result">Загрузка курса...</div>
+        <div id="result" class="result"></div>
+      </div>
+
+      <div class="currency-card">
+        <h3 class="card-title">График курса USD/RUB</h3>
+        <div class="chart-controls">
+          <div>
+            <label for="startDate">Начальная дата:</label>
+            <input type="date" id="startDate">
+          </div>
+          <div>
+            <label for="endDate">Конечная дата:</label>
+            <input type="date" id="endDate">
+          </div>
+          <button onclick="showChart()">Показать график</button>
+        </div>
+        <div class="chart-container">
+          <canvas id="chart"></canvas>
+        </div>
+        <div id="info" class="info-box">Выберите период и нажмите "Показать график"</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Добавленная кнопка "Наверх" -->
+  <a href="#" class="to-top">↑</a>
+
+  <footer>
+    <div class="container">
+      <p class="footer-text">© 2023 AMO-ZIL. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script>
+    let currentRate = 0;
+    let chart;
+    let chartData = [];
+
+    // Установка дат по умолчанию (последние 30 дней)
+    document.addEventListener('DOMContentLoaded', function() {
+      const endDate = new Date();
+      const startDate = new Date();
+      startDate.setDate(endDate.getDate() - 30);
+      
+      document.getElementById('endDate').valueAsDate = endDate;
+      document.getElementById('startDate').valueAsDate = startDate;
+      
+      fetchCurrentRate();
+    });
+
+    async function fetchCurrentRate() {
+      const resultElement = document.getElementById('current-rate');
+      resultElement.textContent = 'Загрузка курса...';
+      resultElement.className = 'result loading';
+      
+      try {
+        const res = await fetch("https://www.cbr-xml-daily.ru/daily_json.js");
+        if (!res.ok) throw new Error('Ошибка сети');
+        
+        const data = await res.json();
+        
+        if (!data.Valute || !data.Valute.USD) {
+          throw new Error('Данные о курсе не найдены');
+        }
+        
+        currentRate = data.Valute.USD.Value;
+        resultElement.textContent = `Текущий курс: 1 USD = ${currentRate.toFixed(2)} RUB`;
+        resultElement.className = 'result';
+      } catch (error) {
+        console.error('Ошибка при получении курса:', error);
+        resultElement.textContent = 'Не удалось получить текущий курс. Попробуйте позже.';
+        resultElement.className = 'result error';
+      }
+    }
+
+    async function convertCurrency() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const fromCurrency = document.getElementById('from-currency').value;
+      const toCurrency = document.getElementById('to-currency').value;
+      const resultElement = document.getElementById('result');
+      
+      resultElement.textContent = '';
+      resultElement.className = 'result';
+
+      if (isNaN(amount)) {
+        resultElement.textContent = 'Введите корректную сумму';
+        resultElement.className = 'result error';
+        return;
+      }
+
+      if (amount <= 0) {
+        resultElement.textContent = 'Сумма должна быть больше нуля';
+        resultElement.className = 'result error';
+        return;
+      }
+
+      if (!currentRate) {
+        resultElement.textContent = 'Загрузка курса...';
+        resultElement.className = 'result loading';
+        await fetchCurrentRate();
+      }
+
+      let result;
+      if (fromCurrency === 'RUB' && toCurrency === 'USD') {
+        result = amount / currentRate;
+        resultElement.textContent = `${amount.toFixed(2)} RUB = ${result.toFixed(2)} USD`;
+      } else if (fromCurrency === 'USD' && toCurrency === 'RUB') {
+        result = amount * currentRate;
+        resultElement.textContent = `${amount.toFixed(2)} USD = ${result.toFixed(2)} RUB`;
+      } else {
+        resultElement.textContent = `${amount.toFixed(2)} ${fromCurrency} = ${amount.toFixed(2)} ${toCurrency}`;
+      }
+    }
+
+    async function showChart() {
+      const startInput = document.getElementById('startDate').value;
+      const endInput = document.getElementById('endDate').value;
+      const infoElement = document.getElementById('info');
+      const ctx = document.getElementById('chart').getContext('2d');
+
+      if (!startInput || !endInput) {
+        infoElement.textContent = 'Выберите начальную и конечную даты';
+        infoElement.className = 'info-box error';
+        return;
+      }
+
+      const startDate = new Date(startInput);
+      const endDate = new Date(endInput);
+
+      if (startDate >= endDate) {
+        infoElement.textContent = 'Конечная дата должна быть позже начальной';
+        infoElement.className = 'info-box error';
+        return;
+      }
+
+      if (chart) {
+        chart.destroy();
+      }
+
+      infoElement.textContent = 'Загрузка данных...';
+      infoElement.className = 'info-box loading';
+
+      const dates = [];
+      const values = [];
+      const tempDate = new Date(startDate);
+      chartData = [];
+      const promises = []; // Добавляем массив для хранения промисов
+
+      if ((endDate - startDate) > 365 * 24 * 60 * 60 * 1000) {
+        infoElement.textContent = 'Выберите период не более 1 года';
+        infoElement.className = 'info-box error';
+        return;
+      }
+
+      try {
+        while (tempDate <= endDate) {
+          const day = ('0' + tempDate.getDate()).slice(-2);
+          const month = ('0' + (tempDate.getMonth() + 1)).slice(-2);
+          const year = tempDate.getFullYear();
+          const dateStr = `${day}/${month}/${year}`;
+          const labelStr = `${year}-${month}-${day}`;
+
+          dates.push(labelStr);
+
+          const url = `https://www.cbr-xml-daily.ru/archive/${year}/${month}/${day}/daily_json.js`;
+          
+          // Добавляем промис в массив
+          promises.push(
+            fetch(url)
+              .then(resp => {
+                if (!resp.ok) throw new Error('Ошибка сети');
+                return resp.json();
+              })
+              .then(data => {
+                const val = data.Valute?.USD?.Value;
+                values.push(val || null);
+                chartData.push({ date: labelStr, value: val || null });
+              })
+              .catch(() => {
+                values.push(null);
+                chartData.push({ date: labelStr, value: null });
+              })
+          );
+
+          tempDate.setDate(tempDate.getDate() + 1);
+        }
+
+        // Ждем выполнения всех промисов
+        await Promise.all(promises);
+
+        // Фильтруем данные, удаляя null значения
+        const filteredDates = [];
+        const filteredValues = [];
+        const filteredChartData = [];
+        
+        for (let i = 0; i < values.length; i++) {
+          if (values[i] !== null) {
+            filteredDates.push(dates[i]);
+            filteredValues.push(values[i]);
+            filteredChartData.push(chartData[i]);
+          }
+        }
+
+        if (filteredValues.length === 0) {
+          throw new Error('Нет данных за выбранный период');
+        }
+
+        chart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: filteredDates,
+            datasets: [{
+              label: 'Курс USD к RUB',
+              data: filteredValues,
+              backgroundColor: filteredDates.map(() => 'rgba(73, 80, 87, 0.6)'),
+              borderColor: 'rgba(73, 80, 87, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            onClick: function(evt, elements) {
+              if (elements.length > 0) {
+                const index = elements[0].index;
+                const selected = filteredChartData[index];
+                const colors = filteredDates.map((_, i) => i === index ? '#6c757d' : 'rgba(73, 80, 87, 0.6)');
+                chart.data.datasets[0].backgroundColor = colors;
+                chart.update();
+                infoElement.textContent = `Дата: ${selected.date}, Курс: ${selected.value ? selected.value.toFixed(2) : 'нет данных'} ₽`;
+                infoElement.className = 'info-box';
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: false,
+                title: {
+                  display: true,
+                  text: 'Курс (RUB)'
+                }
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: 'Дата'
+                },
+                ticks: {
+                  maxRotation: 45,
+                  minRotation: 45,
+                  callback: function(value, index, values) {
+                    return index % Math.ceil(filteredDates.length / 10) === 0 ? filteredDates[index] : '';
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        const lastValueIndex = filteredValues.length - 1;
+        infoElement.textContent = `Дата: ${filteredDates[lastValueIndex]}, Курс: 1 USD = ${filteredValues[lastValueIndex].toFixed(2)} RUB`;
+        infoElement.className = 'info-box';
+
+      } catch (error) {
+        console.error('Ошибка при загрузке данных:', error);
+        infoElement.textContent = 'Не удалось загрузить данные за выбранный период. Попробуйте другой период.';
+        infoElement.className = 'info-box error';
+      }
+    }
+  </script>
+</body>
+</html>

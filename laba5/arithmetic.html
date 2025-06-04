@@ -8,10 +8,18 @@
         <link rel="icon" href="favicon-32x32.png" type="image/x-icon">
         <script>
             function showSum() {
-            let a = 5154;
-            let b = 7891;
+                let inputA = document.getElementById('numberA')
+                let inputB = document.getElementById('numberB')
+
+            let a = parseInt(inputA.value);
+            let b = parseInt(inputB.value);
             let result = a + b;
             alert('сумма '+ a +'  и ' + b + ' равна'+ result);
+        }
+
+        function showA() {
+            let author = 'Всем привет! \n Хорошего Вам дня!)'
+            alert(author);
         }
 
         function showAuthor() {
@@ -74,12 +82,16 @@
         </header>
 
         <main>
+            <label>Первое число: <input type="number" value="5154" id="numberA"></label><br>
+            <label>Второе число: <input type="number" value="7891" id="numberB"></label><br>
+            <div class="message" onclick="showSum()">Найти сумму чисел</div>
+
+
             <div class="message" onclick="showSum()">Сколько будет 5154+7891?</div>
             <div class="message" onclick="showAuthor()"> Узнать, кто автор страницы</div>
-           
         </main>
 
-        <footer>
+        <footer ondblclick="showA()">
             <hr>
             &copy;Абузярова Кристина, ФБИ-34, 2 курс, 2025
         </footer>
